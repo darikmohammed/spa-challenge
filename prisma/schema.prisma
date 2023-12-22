@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model Sector {
+  id          String        @id
+  name        String
+  parent_id   String?
+  sector_user sector_user[]
+}
+
+model User {
+  id          Int           @id @default(autoincrement())
+  name        String
+  agreement   Boolean
+  sector_user sector_user[]
+}
+
+model sector_user {
+  sector_id String
+  user_id   Int
+  sector    Sector @relation(fields: [sector_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  user      User   @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([sector_id, user_id])
+}
