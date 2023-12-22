@@ -1,7 +1,8 @@
 'use client';
-import * as React from 'react';
-import { useToast } from '@/components/ui/use-toast';
 
+import * as React from 'react';
+
+import { useToast } from '@/components/ui/use-toast';
 import {
   Card,
   CardContent,
@@ -13,8 +14,9 @@ import { Checkbox } from '@/components/ui/checkbox';
 
 import axios from 'axios';
 
-export function Sector() {
-  const [selected, setSelected] = React.useState([]);
+import { Loader2 } from 'lucide-react';
+
+export function Sector({ selected, setSelected }) {
   const [loading, setLoading] = React.useState(false);
 
   const [sectors, setSectors] = React.useState([]);
@@ -59,7 +61,8 @@ export function Sector() {
   return (
     <>
       {loading ? (
-        <p className=" text-sm text-muted-foreground">
+        <p className=" flex  items-center gap-2 text-sm text-muted-foreground">
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
           Loading Sectors please wait ...
         </p>
       ) : (

@@ -9,6 +9,7 @@ export async function POST(req) {
     const newUser = await prisma.user.create({
       data: {
         name,
+        agreement: true,
       },
     });
     return await Promise.all(
@@ -17,13 +18,16 @@ export async function POST(req) {
           data: {
             user_id: newUser.id,
             sector_id: sectorId,
-            agreement: true,
           },
         })
       )
     )
       .then((result) => {
-        return res.json({ msg: 'Success' }, { status: 200 });
+        console.log(result);
+        return res.json(
+          { msg: `User ${name} created successfully!` },
+          { status: 200 }
+        );
       })
       .catch((error) => {
         console.error('Error creating user:', error);
