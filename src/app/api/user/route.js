@@ -25,7 +25,7 @@ export async function POST(req) {
       .then((result) => {
         console.log(result);
         return res.json(
-          { msg: `User ${name} created successfully!` },
+          { msg: `User ${name} created successfully!`, id: newUser.id },
           { status: 200 }
         );
       })
@@ -103,18 +103,22 @@ export async function PUT(req) {
   }
 }
 
-// GET /api/your-endpoint?userID=123
+// GET /api/user?userID=123
 
 export async function GET(req) {
   try {
-    const { userID } = await req.query;
+    const userID = parseInt(req.nextUrl.searchParams.get('userID'), 10);
 
     const user = await prisma.user.findUnique({
       where: {
         id: userID,
       },
       include: {
-        sectors: true,
+        sector_user: {
+          include: {
+            sector: true,
+          },
+        },
       },
     });
 

@@ -29,7 +29,6 @@ export default function Home() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('here');
     setSubmit(true);
     const formValues = Object.fromEntries(new FormData(e.target));
     formValues.sectors = selected;
@@ -48,6 +47,9 @@ export default function Home() {
             title: 'Submitted profile!',
             description: response.data?.msg,
           });
+
+          // route to user Detail page /user/[id]
+          // set local storage that a user session is created
         })
         .catch((error) => {
           console.log(error);
@@ -81,7 +83,6 @@ export default function Home() {
         onSubmit={handleSubmit}
         className="flex w-full items-center flex-col gap-5"
       >
-        {console.log(submit)}
         <div className="grid w-full max-w-sm items-center gap-1.5">
           <Label htmlFor="name">Name</Label>
           <Input type="name" id="name" name="name" placeholder="Name" />
