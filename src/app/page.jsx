@@ -12,13 +12,11 @@ export default function Home() {
         in.
       </h1>
 
-      {/*  form  */}
       <div className="grid w-full max-w-sm items-center gap-1.5">
         <Label htmlFor="name">Name</Label>
         <Input type="name" id="name" placeholder="Name" />
       </div>
       <div className="grid w-full max-w-sm items-center gap-1.5">
-        <Label htmlFor="sector">Sector</Label>
         <Sector id="sector" />
       </div>
       <div className="flex items-center space-x-2 max-w-sm w-full mt-4">

@@ -1,190 +1,118 @@
 'use client';
-
 import * as React from 'react';
+import { useToast } from '@/components/ui/use-toast';
 
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
 
-const sectors = [
-  {
-    value: [
-      {
-        value: '19',
-        label: 'Construction materials',
-      },
-      {
-        value: '18',
-        label: 'Electronics and Optics',
-      },
-      {
-        value: [
-          {
-            value: '342',
-            label: 'Bakery & confectionery products',
-          },
-          {
-            value: '43',
-            label: 'Beverages',
-          },
-          {
-            value: '42',
-            label: 'Fish & fish products',
-          },
-          {
-            value: '41',
-            label: 'Meat & meat products',
-          },
-          {
-            value: '40',
-            label: 'Milk & dairy products',
-          },
-          {
-            value: '39',
-            label: 'Other Foods',
-          },
-          {
-            value: '38',
-            label: 'Sweets & snack food',
-          },
-        ],
-        label: 'Food and Beverage',
-      },
-      {
-        label: 'Furniture',
-        value: [
-          {
-            value: '370',
-            label: 'Bathroom/sauna',
-          },
-          {
-            value: '357',
-            label: 'Bedroom',
-          },
-          {
-            value: '369',
-            label: 'Children’s room',
-          },
-          {
-            value: '367',
-            label: 'Kitchen',
-          },
-          {
-            value: '368',
-            label: 'Living room',
-          },
-          {
-            value: '366',
-            label: 'Office',
-          },
-          {
-            value: '356',
-            label: 'Other (Furniture)',
-          },
-        ],
-      },
-      {
-        label: 'Machinery',
-        value: [
-          {
-            value: '317',
-            label: 'Machinery components',
-          },
-          {
-            value: '318',
-            label: 'Machinery equipment/tools',
-          },
-          {
-            value: '319',
-            label: 'Manufacture of machinery',
-          },
-          {
-            value: [
-              {
-                value: '271',
-                label: 'Aluminium and steel work',
-              },
-              {
-                value: '272',
-                label: 'Boat/Yacht building',
-              },
-            ],
-            label: 'Maritime',
-          },
-        ],
-      },
-    ],
-    label: 'Manufacturing',
-  },
-  {
-    label: 'Other',
-    value: [
-      {
-        value: '453',
-        label: 'Creative industries',
-      },
-      {
-        value: '452',
-        label: 'Energy technology',
-      },
-      {
-        value: '455',
-        label: 'Environment',
-      },
-      {
-        value: '454',
-        label: 'Services',
-      },
-    ],
-  },
-];
+import axios from 'axios';
 
 export function Sector() {
-  const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState('');
-  const [selected, setSelected] = React.useState('');
+  const [selected, setSelected] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
+
+  const [sectors, setSectors] = React.useState([]);
+
+  const { toast } = useToast();
+
+  const fetchSectors = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get('/api/sector');
+      setLoading(false);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching sectors:', error);
+      // Handle the error as needed
+      throw error;
+    }
+  };
+
+  React.useEffect(() => {
+    fetchSectors()
+      .then((data) => setSectors(data))
+      .catch(() => {
+        toast({
+          variant: 'destructive',
+          title: 'Error fetching sectors',
+          description: 'Please refresh the page and try again.',
+        });
+      });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleSelect = (sectorId) => {
+    if (selected.includes(sectorId)) {
+      setSelected(selected.filter((id) => id !== sectorId));
+    } else {
+      setSelected([...selected, sectorId]);
+    }
+  };
 
   return (
-    <Select multiple>
-      <SelectTrigger className="w-full">
-        <SelectValue placeholder="Select a Sector" />
-      </SelectTrigger>
-      <SelectContent>
-        {sectors.map((sector) =>
-          renderSectors(
-            sector,
-            (currentValue, label) => {
-              setValue(currentValue === value ? '' : currentValue);
-              setSelected(currentValue === value ? '' : label);
-              setOpen(false);
-            },
-            value
-          )
-        )}
-      </SelectContent>
-    </Select>
+    <>
+      {loading ? (
+        <p className=" text-sm text-muted-foreground">
+          Loading Sectors please wait ...
+        </p>
+      ) : (
+        <Card className="h-96 overflow-scroll">
+          <CardHeader>
+            <CardTitle className="text-sm font-medium">Sector</CardTitle>
+            <CardDescription className=" text-xs text-muted-foreground font-normal">
+              Please select the sector(s) you are currently involved in.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            {sectors.map((sector) =>
+              renderSectors(sector, handleSelect, selected)
+            )}
+          </CardContent>
+        </Card>
+      )}
+    </>
   );
 }
 
 function renderSectors(sector, onSelect, selectedValue) {
   return (
-    <SelectGroup key={sector.label}>
-      {Array.isArray(sector.value) ? (
+    <div key={sector.id}>
+      {sector.child?.length > 0 ? (
         <>
-          <SelectLabel>{sector.label}</SelectLabel>
-          {sector.value.map((sector) =>
-            renderSectors(sector, onSelect, selectedValue)
-          )}
+          <p className="font-medium text-sm text-muted-foreground">
+            {sector.label}
+          </p>
+          <div className="ml-4 mt-2 mb-4 space-y-2">
+            {sector.child.map((childSector) =>
+              renderSectors(childSector, onSelect, selectedValue)
+            )}
+          </div>
         </>
       ) : (
-        <SelectItem value={sector.value}>{sector.label}</SelectItem>
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id={sector.id}
+            value={sector.id}
+            checked={selectedValue.includes(sector.id)}
+            onCheckedChange={() => {
+              onSelect(sector.id);
+            }}
+          />
+          <label
+            htmlFor={sector.id}
+            className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 "
+          >
+            {sector.label}
+          </label>
+        </div>
       )}
-    </SelectGroup>
+    </div>
   );
 }
