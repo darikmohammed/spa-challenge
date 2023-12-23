@@ -18,6 +18,7 @@ import { Loader2 } from 'lucide-react';
 function Form({ edit = false, user, id, sector = [] }) {
   const [selected, setSelected] = React.useState(sector);
   const [submit, setSubmit] = React.useState(false);
+  const [accepted, setAccepted] = React.useState(edit);
 
   const router = useRouter();
 
@@ -122,7 +123,14 @@ function Form({ edit = false, user, id, sector = [] }) {
         <Sector selected={selected} setSelected={setSelected} />
       </div>
       <div className="flex items-center space-x-2 max-w-sm w-full mt-4">
-        <Checkbox id="terms" name="terms" checked={edit} />
+        <Checkbox
+          id="terms"
+          name="terms"
+          checked={accepted}
+          onCheckedChange={() => {
+            setAccepted(!accepted);
+          }}
+        />
         <label
           htmlFor="terms"
           className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
