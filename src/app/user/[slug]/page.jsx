@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import { useRouter } from 'next/navigation';
 
 import { useToast } from '@/components/ui/use-toast';
 
@@ -10,6 +11,7 @@ import { Loader2 } from 'lucide-react';
 import UserDetail from '@/components/detail';
 
 function DetailPage({ params }) {
+  const router = useRouter();
   const { slug } = params;
 
   const [loading, setLoading] = React.useState(false);
@@ -29,6 +31,15 @@ function DetailPage({ params }) {
   };
 
   React.useEffect(() => {
+    // Check if userID is present in local storage
+    const userID = localStorage.getItem('userID');
+
+    // If userID is not present, redirect to the home page
+    if (!userID) {
+      router.push('/');
+      return;
+    }
+
     fetchUserDetail()
       .then((data) => {
         setUserDetail(data);

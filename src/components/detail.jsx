@@ -71,7 +71,7 @@ function UserDetail({ userDetail }) {
             <Form
               edit={true}
               user={userDetail?.user?.name}
-              id = {userDetail?.user?.id}
+              id={userDetail?.user?.id}
               sector={extractSectorIds()}
             />
           </SheetContent>

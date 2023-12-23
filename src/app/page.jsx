@@ -20,8 +20,8 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center gap-10 p-24">
       <h1 className=" text-base font-medium">
-        Please enter your name and pick the Sectors you are currently involved
-        in.
+        Please enter your Name and select the Sector(s) you are currently
+        involved in.
       </h1>
       <Form />
     </main>
