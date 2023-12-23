@@ -11,6 +11,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 import axios from 'axios';
 
@@ -65,19 +66,21 @@ export function Sector({ selected, setSelected }) {
           Loading Sectors please wait ...
         </p>
       ) : (
-        <Card className="h-96 overflow-scroll">
-          <CardHeader>
-            <CardTitle className="text-sm font-medium">Sector</CardTitle>
-            <CardDescription className="  text-xs text-muted-foreground font-normal">
-              Please select the sector(s) you are currently involved in.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            {sectors.map((sector) =>
-              renderSectors(sector, handleSelect, selected)
-            )}
-          </CardContent>
-        </Card>
+        <ScrollArea className=" h-80 md:h-96 rounded-lg border bg-card text-card-foreground shadow-sm">
+          <Card className="border-none">
+            <CardHeader>
+              <CardTitle className="text-sm font-medium">Sector</CardTitle>
+              <CardDescription className="  text-xs text-muted-foreground font-normal">
+                Please select the sector(s) you are currently involved in.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {sectors.map((sector) =>
+                renderSectors(sector, handleSelect, selected)
+              )}
+            </CardContent>
+          </Card>
+        </ScrollArea>
       )}
     </>
   );
