@@ -122,7 +122,7 @@ function Form({ edit = false, user, id, sector = [] }) {
         <Sector selected={selected} setSelected={setSelected} />
       </div>
       <div className="flex items-center space-x-2 max-w-sm w-full mt-4">
-        <Checkbox id="terms" name="terms" />
+        <Checkbox id="terms" name="terms" checked={edit} />
         <label
           htmlFor="terms"
           className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
