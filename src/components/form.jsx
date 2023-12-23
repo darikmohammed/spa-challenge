@@ -79,7 +79,7 @@ function Form({ edit = false, user, id, sector = [] }) {
               title: 'Submitted profile!',
               description: response.data?.msg,
             });
-            router.push(`/user/${id}`);
+            location.reload();
           })
           .catch((error) => {
             console.log(error);
