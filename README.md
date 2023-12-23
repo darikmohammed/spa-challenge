@@ -126,10 +126,10 @@ To run seed file to the database
 ## 👥 Author <a name="authors"></a>
 
 
-👤 **Author1**
+👤 **Darik Mohammed**
 
-- GitHub: [@githubhandle](https://github.com/darikmohammed/)
-- LinkedIn: [LinkedIn](https://www.linkedin.com/in/darik-mohammed)
+- GitHub: [@darikmohammed](https://github.com/darikmohammed/)
+- LinkedIn: [darik-mohammed](https://www.linkedin.com/in/darik-mohammed)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
