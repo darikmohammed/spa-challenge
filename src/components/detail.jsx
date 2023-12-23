@@ -9,10 +9,26 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 
 import { CheckCircle } from 'lucide-react';
+import Form from './form';
 
 function UserDetail({ userDetail }) {
+  const extractSectorIds = () => {
+    if (userDetail?.user?.sector_user) {
+      // Use map to extract sector IDs from the sector_user array
+      const sectorIds = userDetail.user.sector_user.map(
+        (sector) => sector.sector_id
+      );
+      return sectorIds;
+    } else {
+      // Handle the case where the structure is not as expected
+      console.error('Invalid userDetail structure:', userDetail);
+      return [];
+    }
+  };
+
   return (
     <Card className="md:w-[700px]">
       <CardHeader>
@@ -47,7 +63,19 @@ function UserDetail({ userDetail }) {
         </div>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button variant="outline">Edit</Button>
+        <Sheet>
+          <SheetTrigger className="border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50">
+            Edit
+          </SheetTrigger>
+          <SheetContent>
+            <Form
+              edit={true}
+              user={userDetail?.user?.name}
+              id = {userDetail?.user?.id}
+              sector={extractSectorIds()}
+            />
+          </SheetContent>
+        </Sheet>
       </CardFooter>
     </Card>
   );

@@ -15,8 +15,8 @@ import { Button } from '@/components/ui/button';
 
 import { Loader2 } from 'lucide-react';
 
-function Form() {
-  const [selected, setSelected] = React.useState([]);
+function Form({ edit = false, user, id, sector = [] }) {
+  const [selected, setSelected] = React.useState(sector);
   const [submit, setSubmit] = React.useState(false);
 
   const router = useRouter();
@@ -37,49 +37,69 @@ function Form() {
 
     try {
       const value = await validationSchema.validate(formValues);
-      axios
-        .post('/api/user', {
-          name: value.name,
-          sectors: value.sectors,
-          agreement: true,
-        })
-        .then((response) => {
-          toast({
-            variant: 'success',
-            title: 'Submitted profile!',
-            description: response.data?.msg,
-          });
+      if (!edit) {
+        axios
+          .post('/api/user', {
+            name: value.name,
+            sectors: value.sectors,
+            agreement: true,
+          })
+          .then((response) => {
+            toast({
+              variant: 'success',
+              title: 'Submitted profile!',
+              description: response.data?.msg,
+            });
 
-          // route to user Detail page /user/[id]
-          // set local storage that a user session is created
-          localStorage.setItem('userID', response.data?.id);
-          router.push(`/user/${response.data?.id}`);
-        })
-        .catch((error) => {
-          console.log(error);
-          toast({
-            variant: 'destructive',
-            title: 'Error saving your data!',
-            description: error?.message || 'Something Went Wrong.',
+            // route to user Detail page /user/[id]
+            // set local storage that a user session is created
+            localStorage.setItem('userID', response.data?.id);
+            router.push(`/user/${response.data?.id}`);
+          })
+          .catch((error) => {
+            console.log(error);
+            toast({
+              variant: 'destructive',
+              title: 'Error saving your data!',
+              description: error?.message || 'Something Went Wrong.',
+            });
+            setSubmit(false);
           });
-          setSubmit(false);
-        });
+      } else {
+        axios
+          .put('/api/user', {
+            userID: id,
+            name: value.name,
+            sectors: value.sectors,
+            agreement: true,
+          })
+          .then((response) => {
+            toast({
+              variant: 'success',
+              title: 'Submitted profile!',
+              description: response.data?.msg,
+            });
+            router.push(`/user/${id}`);
+          })
+          .catch((error) => {
+            console.log(error);
+            toast({
+              variant: 'destructive',
+              title: 'Error saving your data!',
+              description: error?.message || 'Something Went Wrong.',
+            });
+            setSubmit(false);
+          });
+      }
     } catch (error) {
       console.log({ error });
-      error.errors?.forEach((err) => {
-        console.log(err);
-        toast({
-          variant: 'destructive',
-          title: 'Error saving your data!',
-          description: err,
-        });
-      });
 
       toast({
         variant: 'destructive',
-        title: 'Error saving your data!',
-        description: 'Something Went Wrong.',
+        title: 'Error saving your data!!',
+        description: error?.errors[0] || 'Something Went Wrong.',
       });
+
       setSubmit(false);
     }
   };
@@ -90,7 +110,13 @@ function Form() {
     >
       <div className="grid w-full max-w-sm items-center gap-1.5">
         <Label htmlFor="name">Name</Label>
-        <Input type="name" id="name" name="name" placeholder="Name" />
+        <Input
+          type="name"
+          id="name"
+          name="name"
+          placeholder="Name"
+          defaultValue={user}
+        />
       </div>
       <div className="grid w-full max-w-sm items-center gap-1.5">
         <Sector selected={selected} setSelected={setSelected} />

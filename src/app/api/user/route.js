@@ -41,7 +41,15 @@ export async function POST(req) {
 
 export async function PUT(req) {
   try {
-    const { userID, name: newName, sectors: newSectors } = await req.json();
+    const {
+      userID,
+      name: newName,
+      sectors: newSectors,
+      agreement,
+    } = await req.json();
+
+    if (!agreement)
+      return res.json({ error: 'Require to agree to terms.' }, { status: 400 });
 
     if (newName) {
       await prisma.user.update({
@@ -96,7 +104,10 @@ export async function PUT(req) {
     const createdSectors = await Promise.all(createSectorPromises);
 
     console.log(JSON.stringify(createdSectors, null, 2));
-    return res.json({ msg: 'Success' }, { status: 200 });
+    return res.json(
+      { msg: `User ${newName} updated successfully!` },
+      { status: 200 }
+    );
   } catch (error) {
     console.error('Error handling request:', error);
     return res.json({ error: 'Internal Server Error' }, { status: 500 });
