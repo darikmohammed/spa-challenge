@@ -110,8 +110,13 @@ Navigate to the project directory:
 To run the project, execute the following command:
 
 ```sh
-  npx 
   npm run dev
+```
+
+To run seed file to the database
+
+```sh
+  npx prisma db seed
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
