@@ -18,7 +18,7 @@ export default function Home() {
   }, [router]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center gap-10 p-24">
+    <main className="flex min-h-screen flex-col items-center gap-10 md:p-24 p-4">
       <h1 className=" text-base font-medium">
         Please enter your Name and select the Sector(s) you are currently
         involved in.
