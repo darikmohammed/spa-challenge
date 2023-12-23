@@ -40,6 +40,11 @@ function DetailPage({ params }) {
       return;
     }
 
+    if (userID != slug) {
+      router.push(`/user/${userID}`);
+      return;
+    }
+
     fetchUserDetail()
       .then((data) => {
         setUserDetail(data);
