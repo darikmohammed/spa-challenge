@@ -1,36 +1,140 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<a name="readme-top"></a>
 
-## Getting Started
+<!-- TABLE OF CONTENTS -->
 
-First, run the development server:
+# 📗 Table of Contents
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- [📖 About the Project](#about-project)
+  - [🛠 Built With](#built-with)
+    - [Tech Stack](#tech-stack)
+    - [Key Features](#key-features)
+  - [🚀 Live Demo](#live-demo)
+- [💻 Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+  - [Install](#install)
+  - [Usage](#usage)
+- [👥 Authors](#authors)
+- [🔭 Future Features](#future-features)
+
+<!-- PROJECT DESCRIPTION -->
+
+# 📖 SPA-Challenge <a name="about-project"></a>
+
+> A responsive single-page application using NextJs(React.js) that allows users to input their name, select sectors, and agree to terms.
+
+**SPA-Challenge application** is a responsive application that validates user inputs and store data in a database. It enables users to edit their information during the session.
+
+## 🛠 Built With <a name="built-with"></a>
+
+### Tech Stack <a name="tech-stack"></a>
+
+> Built with Nextjs, utilizes Prisma as a database, and implements a server through the Nextjs API.
+
+<details>
+  <summary>Frontend</summary>
+  <ul>
+    <li><a href="https://nextjs.org/">Next.js</a></li>
+  </ul>
+</details>
+
+<details>
+  <summary>Backend</summary>
+  <ul>
+    <li><a href="https://prisma.io/">Prisma</a></li>
+    <li><a href="https://nextjs.org/docs/api-routes/introduction">Next.js API</a></li>
+  </ul>
+</details>
+
+<details>
+<summary>Database</summary>
+  <ul>
+    <li><a href="https://www.postgresql.org/">PostgreSQL</a></li>
+  </ul>
+</details>
+
+<!-- Features -->
+
+### Key Features <a name="key-features"></a>
+
+- **Responsive Single-Page Application**: The project is built using Next.js, providing a responsive and seamless user experience.
+
+- **Prisma Database Integration**: Utilizes Prisma as the database for efficient data storage and retrieval.
+
+- **Dynamic Form Handling**: Enables users to input and validate data,
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- LIVE DEMO -->
+
+## 🚀 Live Demo <a name="live-demo"></a>
+
+- Vercel Deployed (https://spa-challenge-two.vercel.app/)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- GETTING STARTED -->
+
+## 💻 Getting Started <a name="getting-started"></a>
+
+
+To get a local copy up and running, follow these steps.
+
+### Prerequisites
+
+Before running the project, make sure you have the following installed:
+
+- [Node.js](https://nodejs.org/en/)
+- [npm](https://www.npmjs.com/) (Node Package Manager)
+
+### Setup
+
+Clone this repository to your desired folder:
+
+```sh
+  cd my-folder
+  git clone git@github.com:darikmohammed/spa-challenge.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Install
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Navigate to the project directory:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```sh
+  cd spa-challenge
+  npm install
+```
 
-## Learn More
+### Usage
 
-To learn more about Next.js, take a look at the following resources:
+To run the project, execute the following command:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```sh
+  npx 
+  npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Deploy on Vercel
+<!-- AUTHORS -->
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 👥 Author <a name="authors"></a>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+👤 **Author1**
+
+- GitHub: [@githubhandle](https://github.com/darikmohammed/)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/darik-mohammed)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- FUTURE FEATURES -->
+
+## 🔭 Future Features <a name="future-features"></a>
+
+
+- [ ] **Delete Sectors**: Implement the ability to delete sectors directly from the main page, providing users with a more convenient way to manage their sector selections.
+- [ ] **Delete Sectors API**: Implement the ability to delete sector in one endpoint, providing frontend with a more convenient way to manage single sector deleting.
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
