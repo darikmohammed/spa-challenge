@@ -31,7 +31,6 @@ export function Sector({ selected, setSelected }) {
       return response.data;
     } catch (error) {
       console.error('Error fetching sectors:', error);
-      // Handle the error as needed
       throw error;
     }
   };
@@ -69,7 +68,7 @@ export function Sector({ selected, setSelected }) {
         <Card className="h-96 overflow-scroll">
           <CardHeader>
             <CardTitle className="text-sm font-medium">Sector</CardTitle>
-            <CardDescription className=" text-xs text-muted-foreground font-normal">
+            <CardDescription className="  text-xs text-muted-foreground font-normal">
               Please select the sector(s) you are currently involved in.
             </CardDescription>
           </CardHeader>
