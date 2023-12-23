@@ -9,6 +9,7 @@ import axios from 'axios';
 
 import { Loader2 } from 'lucide-react';
 import UserDetail from '@/components/detail';
+import ThemeChooser from '@/components/theme-chooser';
 
 function DetailPage({ params }) {
   const router = useRouter();
@@ -71,7 +72,10 @@ function DetailPage({ params }) {
           Loading your Data please wait ...
         </p>
       ) : (
-        <UserDetail userDetail={userDetail} />
+        <div className="flex flex-col items-center gap-4">
+          <ThemeChooser />
+          <UserDetail userDetail={userDetail} />
+        </div>
       )}
     </div>
   );

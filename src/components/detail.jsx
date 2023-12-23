@@ -54,7 +54,7 @@ function UserDetail({ userDetail }) {
                   key={sector.sector_id}
                   className="flex gap-2 items-center text-muted-foreground"
                 >
-                  <CheckCircle className="h-4 w-4" />
+                  <CheckCircle className="h-4 w-4 text-primary" />
                   <p className="text-sm font-normal">{sector?.sector?.name}</p>
                 </div>
               ))}
